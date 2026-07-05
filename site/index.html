@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vaše Pohoda to ví. My vám to ukážeme. — analytika pro IS POHODA</title>
 <meta name="description" content="Obrat, marže, pohledávky, sklad i plnění plánu — živě z vaší Pohody, srozumitelně pro majitele. Bez Excelu, bez konzultanta, do 10 minut.">
+<link rel="canonical" href="https://pohodaanalytics.vercel.app/site/">
+<meta name="theme-color" content="#0A1422">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Vaše Pohoda to ví. My vám to ukážeme.">
+<meta property="og:description" content="Obrat, marže, pohledávky, sklad i plnění plánu — živě z vaší Pohody, srozumitelně pro majitele firmy. Vyzkoušejte zdarma na vlastních datech.">
+<meta property="og:url" content="https://pohodaanalytics.vercel.app/site/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1422'/%3E%3Crect x='12' y='34' width='10' height='18' rx='3' fill='%231DC97C'/%3E%3Crect x='27' y='22' width='10' height='30' rx='3' fill='%231DC97C'/%3E%3Crect x='42' y='12' width='10' height='40' rx='3' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap&subset=latin-ext" rel="stylesheet">
@@ -32,6 +41,10 @@ body { font-family: var(--body); color: var(--ink); background: var(--papir); fo
 .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 a { color: inherit; }
 :focus-visible { outline: 2.5px solid var(--zelen); outline-offset: 3px; border-radius: 2px; }
+::selection { background: rgba(29,201,124,.35); }
+section[id], div[id] { scroll-margin-top: 24px; }
+.skip { position: absolute; left: -9999px; top: 0; z-index: 99; background: var(--zelen); color: var(--ink); font-weight: 700; padding: 10px 18px; border-radius: 0 0 10px 0; }
+.skip:focus { left: 0; }
 img, svg { max-width: 100%; }
 
 /* ============ header ============ */
@@ -42,7 +55,8 @@ header { position: absolute; top: 0; left: 0; right: 0; z-index: 30; }
 nav.top { display: flex; gap: 26px; font-size: 14px; font-weight: 500; }
 nav.top a { text-decoration: none; color: var(--svetly-text); }
 nav.top a:hover { color: #fff; }
-.btn { display: inline-block; text-decoration: none; font-weight: 700; font-size: 15px; padding: 13px 24px; border-radius: 10px; border: 2px solid transparent; background: var(--zelen); color: var(--ink); transition: transform .12s ease, background .15s; }
+.btn { display: inline-block; text-decoration: none; font-weight: 700; font-size: 15px; padding: 13px 26px; border-radius: 99px; border: 2px solid transparent; background: var(--zelen); color: var(--ink); transition: transform .12s ease, background .15s, box-shadow .15s; }
+.btn:hover { box-shadow: 0 8px 24px -8px rgba(29,201,124,.5); }
 .btn:hover { background: #2BE08F; transform: translateY(-1px); }
 .btn.obrys { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); }
 .btn.obrys:hover { border-color: #fff; background: rgba(255,255,255,.06); }
@@ -62,7 +76,7 @@ nav.top a:hover { color: #fff; }
 .hero { display: grid; grid-template-columns: 1.02fr 1fr; gap: 56px; align-items: center; padding-bottom: 96px; }
 @media (max-width: 960px) { .hero { grid-template-columns: 1fr; padding-bottom: 72px; } }
 .eyebrow { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--zelen); margin-bottom: 20px; }
-h1 { font-family: var(--disp); font-weight: 900; letter-spacing: -.035em; line-height: 1.0; font-size: clamp(40px, 5.8vw, 68px); margin-bottom: 12px; }
+h1 { font-family: var(--disp); font-weight: 900; letter-spacing: -.035em; line-height: 1.04; font-size: clamp(36px, 4.6vw, 56px); margin-bottom: 12px; }
 .otazka-cyklus { color: var(--zelen); display: block; min-height: 1.15em; }
 .otazka-cyklus .kurzor { display: inline-block; width: .06em; background: var(--zelen); animation: blik 1s steps(1) infinite; color: transparent; }
 @keyframes blik { 50% { opacity: 0; } }
@@ -83,7 +97,7 @@ h1 { font-family: var(--disp); font-weight: 900; letter-spacing: -.035em; line-h
 @media (max-width: 620px) { .kpis { grid-template-columns: 1fr; } .kpi { display: flex; justify-content: space-between; align-items: baseline; } .kpi .v { margin-top: 0; } }
 .kpi { background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.07); border-radius: 10px; padding: 12px 14px; }
 .kpi .l { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--svetly-text); }
-.kpi .v { font-family: var(--disp); font-weight: 800; font-size: 21px; letter-spacing: -.02em; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.kpi .v { font-family: var(--disp); font-weight: 800; font-size: clamp(16px, 1.35vw, 20px); letter-spacing: -.02em; margin-top: 3px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .kpi .v.plus { color: var(--zelen); }
 .kpi .v.minus { color: var(--cervena); }
 .graf { display: flex; align-items: flex-end; gap: 6px; height: 130px; padding: 4px 2px 0; }
@@ -96,7 +110,7 @@ h1 { font-family: var(--disp); font-weight: 900; letter-spacing: -.035em; line-h
 }
 @keyframes rust { from { transform: scaleY(0); } }
 .graf-popis { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--svetly-text); margin-top: 8px; padding: 0 2px; }
-.dash .alarm { margin-top: 16px; background: rgba(255,122,92,.1); border: 1px solid rgba(255,122,92,.28); border-radius: 10px; padding: 11px 14px; font-family: var(--mono); font-size: 12px; color: #FFB3A0; display: flex; gap: 10px; align-items: center; }
+.dash .alarm { margin-top: 16px; background: rgba(255,122,92,.1); border: 1px solid rgba(255,122,92,.28); border-radius: 10px; padding: 11px 14px; font-family: var(--mono); font-size: 12px; color: #FFB3A0; display: flex; gap: 10px; align-items: flex-start; line-height: 1.6; }
 .dash .alarm::before { content: "!"; font-weight: 700; width: 18px; height: 18px; flex-shrink: 0; border-radius: 99px; background: var(--cervena); color: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 12px; }
 
 /* plovoucí karty kolem hero dashboardu */
@@ -110,7 +124,7 @@ h1 { font-family: var(--disp); font-weight: 900; letter-spacing: -.035em; line-h
 .fl-karta.uhrada .tecka { width: 30px; height: 30px; border-radius: 99px; background: rgba(29,201,124,.16); color: var(--zelen-tmava); display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
 .fl-karta .t1 { font-weight: 700; font-family: var(--body); }
 .fl-karta .t2 { font-family: var(--mono); font-size: 11px; color: var(--text-2); }
-.fl-karta.plneni { bottom: -20px; left: -18px; }
+.fl-karta.plneni { top: 46%; left: -30px; }
 .kolo { width: 44px; height: 44px; border-radius: 99px; flex-shrink: 0;
   background: conic-gradient(var(--zelen-tmava) 0 147deg, #E8EBE4 147deg 360deg); position: relative; }
 .kolo::after { content: "41%"; position: absolute; inset: 6px; background: #fff; border-radius: 99px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; font-weight: 600; }
@@ -119,7 +133,7 @@ h1 { font-family: var(--disp); font-weight: 900; letter-spacing: -.035em; line-h
   .fl-karta.plneni { animation-duration: 6.2s; animation-delay: .8s; }
   @keyframes vznaseni { from { transform: translateY(-4px); } to { transform: translateY(6px); } }
 }
-@media (max-width: 960px) { .fl-karta.uhrada { right: 6px; top: -18px; } .fl-karta.plneni { left: 6px; bottom: -16px; } }
+@media (max-width: 960px) { .fl-karta.uhrada { right: 6px; top: -18px; } .fl-karta.plneni { left: 6px; top: auto; bottom: -16px; } }
 
 /* ============ product tour – okno prohlížeče ============ */
 .tour-sekce { background: linear-gradient(180deg, var(--papir), #EDF0E9); }
@@ -314,6 +328,7 @@ footer a { color: var(--text-2); }
 </style>
 </head>
 <body>
+<a class="skip" href="#moduly">Přeskočit na obsah</a>
 
 <header>
   <div class="hd">
