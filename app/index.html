@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pohoda Analytics — demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">PA</div>
+      <div>
+        <div class="brand-name">Pohoda&nbsp;Analytics</div>
+        <div class="brand-sub">pracovní název · demo</div>
+      </div>
+    </div>
+    <nav class="nav" id="nav">
+      <a href="#prehled" data-view="prehled" class="active"><span class="ico">◧</span>Přehled</a>
+      <a href="#prodej" data-view="prodej"><span class="ico">▲</span>Prodej</a>
+      <a href="#pohledavky" data-view="pohledavky"><span class="ico">◔</span>Pohledávky &amp; Závazky</a>
+      <a href="#sklad" data-view="sklad"><span class="ico">▤</span>Sklad</a>
+      <a href="#import" data-view="import"><span class="ico">⇄</span>Napojení na Pohodu</a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="company-chip" id="companyChip"></div>
+      <div class="muted small">Data: demo firma<br>Poslední sync: <span id="lastSync"></span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1 id="viewTitle">Přehled</h1>
+      <div class="period-filter" id="periodFilter"></div>
+    </header>
+    <div id="content"></div>
+    <footer class="foot muted small">
+      Demo verze — všechna data jsou fiktivní. Pohoda Analytics není produktem společnosti STORMWARE s.r.o.
+    </footer>
+  </main>
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
