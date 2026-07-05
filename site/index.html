@@ -222,6 +222,30 @@ h2 { font-family: var(--disp); font-weight: 900; letter-spacing: -.03em; font-si
 .eyebrow.tmavy { color: var(--zelen-tmava); }
 .zvyraz { background: linear-gradient(transparent 62%, rgba(29,201,124,.35) 62%); }
 
+/* ============ dnes vs. s námi (USP) ============ */
+.porovnani { display: grid; grid-template-columns: 1fr 64px 1fr; gap: 20px; align-items: stretch; }
+@media (max-width: 900px) { .porovnani { grid-template-columns: 1fr; gap: 12px; } }
+.cesta { border-radius: 18px; padding: 30px 30px 24px; display: flex; flex-direction: column; }
+.cesta.stara { background: #fff; border: 1px solid var(--linka); }
+.cesta.nova { background: var(--ink); color: #fff; box-shadow: 0 30px 70px -30px rgba(10,20,34,.5); }
+.cesta .nadpis { font-family: var(--mono); font-size: 11.5px; letter-spacing: .13em; text-transform: uppercase; margin-bottom: 20px; }
+.cesta.stara .nadpis { color: #B33A22; }
+.cesta.nova .nadpis { color: var(--zelen); }
+.cesta ol { list-style: none; display: flex; flex-direction: column; gap: 13px; flex: 1; }
+.cesta li { display: flex; gap: 12px; align-items: baseline; font-size: 15px; line-height: 1.5; }
+.cesta li .zn { font-family: var(--mono); font-weight: 600; flex-shrink: 0; width: 20px; text-align: center; }
+.cesta.stara li { color: var(--text-2); }
+.cesta.stara li .zn { color: #C2402E; }
+.cesta.stara li s { text-decoration-color: rgba(194,64,46,.55); text-decoration-thickness: 1.5px; }
+.cesta.nova li .zn { color: var(--zelen); }
+.cesta .ucet { margin-top: 22px; padding-top: 16px; border-top: 1px dashed var(--linka); font-family: var(--mono); font-size: 13px; color: var(--text-2); display: flex; justify-content: space-between; gap: 10px; }
+.cesta.nova .ucet { border-top-color: rgba(255,255,255,.16); color: var(--svetly-text); }
+.cesta .ucet b { font-size: 16px; }
+.cesta.stara .ucet b { color: #B33A22; }
+.cesta.nova .ucet b { color: var(--zelen); }
+.porovnani .sipka { display: flex; align-items: center; justify-content: center; font-family: var(--disp); font-weight: 900; font-size: 30px; color: var(--zelen-tmava); }
+@media (max-width: 900px) { .porovnani .sipka { transform: rotate(90deg); height: 34px; } }
+
 /* ============ moduly – karty s mini-viz ============ */
 .mriz { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
 .modul { background: var(--bila); border: 1px solid var(--linka); border-radius: 16px; padding: 26px; grid-column: span 2; transition: transform .18s ease, box-shadow .18s ease; position: relative; overflow: hidden; }
@@ -351,7 +375,7 @@ footer a { color: var(--text-2); }
         Vaše Pohoda to ví.<br>My vám to ukážeme.
       </h1>
       <p class="sub">Obrat, marže, pohledávky, sklad i plnění plánu — <b>živě, srozumitelně,
-      každé ráno</b>. Bez Excelu, bez konzultanta, bez čekání na účetní.</p>
+      každé ráno</b>. Bez exportů do Excelu, bez kontingenčních tabulek, bez čekání na účetní.</p>
       <div class="cta">
         <a class="btn" href="../app/">Vyzkoušet živé demo</a>
         <a class="btn obrys" href="../app/#import">Nahrát vlastní data zdarma</a>
@@ -404,6 +428,39 @@ footer a { color: var(--text-2); }
 </div>
 
 <main>
+  <section class="blok wrap" id="proc">
+    <div class="sekce-hlava">
+      <div class="eyebrow tmavy">Proč vznikáme</div>
+      <h2>Už se nehrabejte <span class="zvyraz">v exportech</span>.</h2>
+      <p>Pohoda vaše čísla má — jen je neumí ukázat. Tak se každý týden exportuje,
+      lepí kontingenční tabulka a výsledek stejně zastará dřív, než ho někdo otevře.</p>
+    </div>
+    <div class="porovnani">
+      <div class="cesta stara">
+        <div class="nadpis">Jak to vypadá dnes</div>
+        <ol>
+          <li><span class="zn">✗</span><span>Export agendy z Pohody do Excelu</span></li>
+          <li><span class="zn">✗</span><span>SVYHLEDAT, kontingenční tabulky, ruční dočišťování</span></li>
+          <li><span class="zn">✗</span><span>Graf do prezentace pro jednatele či banku</span></li>
+          <li><span class="zn">✗</span><span>Kolega má mezitím jinou verzi souboru — a jiná čísla</span></li>
+          <li><span class="zn">✗</span><span>Příští týden celé znovu, od nuly</span></li>
+        </ol>
+        <div class="ucet"><span>čas každý týden</span><b>~3 hodiny</b></div>
+      </div>
+      <div class="sipka" aria-hidden="true">→</div>
+      <div class="cesta nova">
+        <div class="nadpis">S jedním napojením na Pohodu</div>
+        <ol>
+          <li><span class="zn">✓</span><span>Otevřete prohlížeč — přehledy jsou hotové a spočítané</span></li>
+          <li><span class="zn">✓</span><span>Čísla čerstvá každou hodinu, přímo z Pohody</span></li>
+          <li><span class="zn">✓</span><span>Jedna verze pravdy pro vás, kolegy i účetní</span></li>
+          <li><span class="zn">✓</span><span>Kontingenční tabulky už nikdy nemusíte otevřít</span></li>
+        </ol>
+        <div class="ucet"><span>čas každý týden</span><b>0 minut</b></div>
+      </div>
+    </div>
+  </section>
+
   <section class="blok wrap" id="moduly">
     <div class="sekce-hlava">
       <div class="eyebrow tmavy">Moduly</div>
