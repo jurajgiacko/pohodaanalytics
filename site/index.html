@@ -3,113 +3,446 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rozumějte svojí firmě za 10 minut — analytika pro IS POHODA</title>
-<meta name="description" content="Přehledy obratu, marží, pohledávek a skladu z vašich dat v IS POHODA. Bez konzultanta, bez Excelu. Vyzkoušejte zdarma na vlastních datech.">
+<title>Každé ráno víte, jak firma jede — analytika pro IS POHODA</title>
+<meta name="description" content="Napojíme se na vaši Pohodu a proměníme účetní data v odpovědi: obrat, marže, pohledávky, sklad i plnění plánu. Bez Excelu, bez konzultanta, do 10 minut.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap&subset=latin-ext" rel="stylesheet">
 <style>
-:root { --ink:#0f172a; --ink2:#475569; --muted:#94a3b8; --accent:#2563eb; --bg:#ffffff; --soft:#f4f6fb; --line:#e2e8f0; }
-* { box-sizing:border-box; margin:0; padding:0; }
-body { font-family:Inter,-apple-system,system-ui,sans-serif; color:var(--ink); background:var(--bg); line-height:1.6; font-size:16px; }
-.wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
-header { padding:20px 0; border-bottom:1px solid var(--line); position:sticky; top:0; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); z-index:9; }
-header .wrap { display:flex; align-items:center; justify-content:space-between; }
-.logo { display:flex; gap:10px; align-items:center; font-weight:800; font-size:17px; }
-.logo-mark { width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; }
-.btn { display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; padding:12px 24px; border-radius:10px; font-size:15px; }
-.btn.ghost { background:transparent; color:var(--accent); border:1.5px solid var(--accent); }
-.hero { padding:88px 0 64px; text-align:center; }
-.hero h1 { font-size:clamp(30px,5vw,52px); font-weight:900; letter-spacing:-.03em; line-height:1.12; max-width:800px; margin:0 auto 20px; }
-.hero h1 em { font-style:normal; color:var(--accent); }
-.hero p { font-size:19px; color:var(--ink2); max-width:640px; margin:0 auto 32px; }
-.hero .cta { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-.hero .note { margin-top:14px; font-size:13px; color:var(--muted); }
-.strip { background:var(--soft); padding:64px 0; }
-h2 { font-size:clamp(24px,3.5vw,34px); font-weight:800; letter-spacing:-.02em; text-align:center; margin-bottom:40px; }
-.features { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; }
-.feature { background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px; }
-.feature .ico { font-size:26px; margin-bottom:12px; }
-.feature h3 { font-size:17px; margin-bottom:8px; }
-.feature p { font-size:14.5px; color:var(--ink2); }
-.pricing { padding:72px 0; }
-.plans { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; align-items:stretch; }
-.plan { border:1px solid var(--line); border-radius:16px; padding:28px 24px; display:flex; flex-direction:column; }
-.plan.hot { border-color:var(--accent); box-shadow:0 8px 32px rgba(37,99,235,.12); position:relative; }
-.plan.hot::before { content:"Nejoblíbenější"; position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff; font-size:11px; font-weight:700; padding:3px 12px; border-radius:99px; }
-.plan h3 { font-size:15px; text-transform:uppercase; letter-spacing:.05em; }
-.plan .price { font-size:34px; font-weight:900; margin:10px 0 2px; }
-.plan .per { font-size:13px; color:var(--muted); margin-bottom:16px; }
-.plan ul { list-style:none; font-size:14px; color:var(--ink2); flex:1; }
-.plan li { padding:5px 0 5px 24px; position:relative; }
-.plan li::before { content:"✓"; position:absolute; left:0; color:var(--accent); font-weight:700; }
-.plan .btn { margin-top:20px; text-align:center; }
-footer { border-top:1px solid var(--line); padding:36px 0; font-size:13px; color:var(--muted); }
+:root {
+  --papir: #F7F8F5;
+  --inkoust: #0C1A2A;
+  --inkoust-2: #43526B;
+  --zelen: #0E7A4E;
+  --zelen-svetla: #E8F3EC;
+  --saldo: #C2402E;
+  --saldo-svetle: #FAEDE9;
+  --linka: #DFE3DB;
+  --panel: #FFFFFF;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --disp: "Archivo", sans-serif;
+  --body: "Inter", -apple-system, system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  font-family: var(--body); color: var(--inkoust); background: var(--papir);
+  font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+a { color: inherit; }
+:focus-visible { outline: 2.5px solid var(--zelen); outline-offset: 3px; border-radius: 2px; }
+
+/* ---------- header ---------- */
+header {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--papir) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linka);
+}
+.hd { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1120px; margin: 0 auto; }
+.wordmark { font-family: var(--disp); font-weight: 800; font-size: 17px; letter-spacing: -.02em; text-decoration: none; display: flex; align-items: baseline; gap: 8px; }
+.wordmark .wip { font-family: var(--mono); font-size: 10.5px; font-weight: 400; color: var(--inkoust-2); letter-spacing: .04em; }
+nav.top { display: flex; gap: 26px; font-size: 14px; font-weight: 500; }
+nav.top a { text-decoration: none; color: var(--inkoust-2); }
+nav.top a:hover { color: var(--inkoust); }
+.btn {
+  display: inline-block; text-decoration: none; font-weight: 600; font-size: 15px;
+  padding: 12px 22px; border-radius: 8px; border: 1.5px solid transparent;
+  background: var(--zelen); color: #fff; transition: background .15s;
+}
+.btn:hover { background: #0A6440; }
+.btn.obrys { background: transparent; color: var(--inkoust); border-color: var(--inkoust); }
+.btn.obrys:hover { background: var(--inkoust); color: #fff; }
+.btn.maly { padding: 8px 16px; font-size: 13.5px; }
+@media (max-width: 720px) { nav.top { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { padding: 72px 0 84px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+@media (max-width: 920px) { .hero { grid-template-columns: 1fr; padding-top: 48px; } }
+.eyebrow { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--zelen); margin-bottom: 18px; }
+h1 {
+  font-family: var(--disp); font-weight: 900; letter-spacing: -.035em; line-height: 1.02;
+  font-size: clamp(38px, 5.6vw, 62px); margin-bottom: 22px; text-wrap: balance;
+}
+.hero p.sub { font-size: 18px; color: var(--inkoust-2); max-width: 480px; margin-bottom: 30px; }
+.hero .cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.hero .pozn { margin-top: 16px; font-size: 13.5px; color: var(--inkoust-2); }
+.hero .pozn strong { color: var(--inkoust); font-weight: 600; }
+
+/* ranní přehled — signature panel */
+.report {
+  background: var(--inkoust); color: #EAF0EA; border-radius: 14px;
+  padding: 26px 26px 20px; box-shadow: 0 24px 60px -20px rgba(12,26,42,.45);
+  font-size: 14px;
+}
+.report .hlava { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.report .titulek { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: #8FA3B8; }
+.report .sync { font-family: var(--mono); font-size: 11px; color: #7FCBA4; display: flex; align-items: center; gap: 6px; }
+.report .sync::before { content: ""; width: 7px; height: 7px; border-radius: 99px; background: #3FBF7F; box-shadow: 0 0 0 3px rgba(63,191,127,.2); }
+.radek { padding: 16px 0 14px; border-bottom: 1px solid rgba(234,240,234,.12); }
+.radek:last-of-type { border-bottom: 0; }
+.radek .otazka { font-family: var(--disp); font-weight: 700; font-size: 16.5px; color: #fff; margin-bottom: 5px; }
+.radek .odpoved { font-family: var(--mono); font-size: 13.5px; color: #B9C6D2; line-height: 1.7; }
+.radek .odpoved b { font-weight: 600; }
+.cislo-plus { color: #7FCBA4; }
+.cislo-minus { color: #F0937F; }
+.report .pata { padding-top: 14px; }
+.report .pata a { font-family: var(--mono); font-size: 12.5px; color: #7FCBA4; text-decoration: none; letter-spacing: .04em; }
+.report .pata a:hover { text-decoration: underline; }
+@media (prefers-reduced-motion: no-preference) {
+  .radek { opacity: 0; transform: translateY(8px); animation: vzhuru .5s ease forwards; }
+  .radek:nth-child(2) { animation-delay: .15s; }
+  .radek:nth-child(3) { animation-delay: .3s; }
+  .radek:nth-child(4) { animation-delay: .45s; }
+  @keyframes vzhuru { to { opacity: 1; transform: none; } }
+}
+
+/* ---------- fakta pás ---------- */
+.fakta { border-top: 1px solid var(--linka); border-bottom: 1px solid var(--linka); background: #FFFFFF; }
+.fakta .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 22px 24px; }
+@media (max-width: 720px) { .fakta .wrap { grid-template-columns: 1fr; gap: 10px; padding: 18px 24px; } }
+.fakt { font-size: 14px; color: var(--inkoust-2); display: flex; gap: 10px; align-items: baseline; }
+.fakt::before { content: "—"; color: var(--zelen); font-weight: 700; }
+.fakt b { color: var(--inkoust); font-weight: 600; }
+
+/* ---------- sekce ---------- */
+section.blok { padding: 84px 0; }
+.sekce-hlava { max-width: 620px; margin-bottom: 48px; }
+h2 { font-family: var(--disp); font-weight: 800; letter-spacing: -.03em; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1; margin: 14px 0 14px; text-wrap: balance; }
+.sekce-hlava p { color: var(--inkoust-2); font-size: 16.5px; }
+
+/* moduly — řádky účetní knihy */
+.kniha { border-top: 1px solid var(--inkoust); }
+.zaznam {
+  display: grid; grid-template-columns: 150px 1.25fr 1fr; gap: 28px; align-items: baseline;
+  padding: 26px 8px; border-bottom: 1px solid var(--linka); transition: background .15s;
+}
+.zaznam:hover { background: #FFFFFF; }
+@media (max-width: 860px) { .zaznam { grid-template-columns: 1fr; gap: 8px; } }
+.agenda { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; color: var(--inkoust-2); }
+.agenda b { color: var(--zelen); font-weight: 600; }
+.zaznam h3 { font-family: var(--disp); font-weight: 700; font-size: 19px; letter-spacing: -.015em; margin-bottom: 4px; }
+.zaznam .popis { font-size: 14.5px; color: var(--inkoust-2); max-width: 420px; }
+.ukazka { font-family: var(--mono); font-size: 13px; color: var(--inkoust); background: var(--panel); border: 1px solid var(--linka); border-radius: 8px; padding: 12px 14px; line-height: 1.8; }
+.ukazka .mira { color: var(--inkoust-2); }
+.stitek { display: inline-block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; background: var(--zelen-svetla); color: var(--zelen); border-radius: 99px; padding: 2px 10px; vertical-align: 2px; margin-left: 8px; }
+
+/* jak to funguje */
+.kroky { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: krok; }
+@media (max-width: 860px) { .kroky { grid-template-columns: 1fr; } }
+.krok { background: var(--panel); border: 1px solid var(--linka); border-radius: 12px; padding: 26px 24px; }
+.krok::before {
+  counter-increment: krok; content: "krok " counter(krok);
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--zelen);
+  display: block; margin-bottom: 12px;
+}
+.krok h3 { font-family: var(--disp); font-weight: 700; font-size: 18px; margin-bottom: 8px; letter-spacing: -.01em; }
+.krok p { font-size: 14.5px; color: var(--inkoust-2); }
+.bez-instalace { margin-top: 22px; font-size: 14.5px; color: var(--inkoust-2); background: var(--zelen-svetla); border-radius: 10px; padding: 16px 20px; }
+.bez-instalace b { color: var(--inkoust); }
+
+/* ceník */
+.plany { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: stretch; }
+@media (max-width: 1000px) { .plany { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .plany { grid-template-columns: 1fr; } }
+.plan { background: var(--panel); border: 1px solid var(--linka); border-radius: 12px; padding: 26px 22px; display: flex; flex-direction: column; }
+.plan.hlavni { border: 2px solid var(--zelen); position: relative; }
+.plan.hlavni::before { content: "nejčastější volba"; position: absolute; top: -10px; left: 20px; background: var(--zelen); color: #fff; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 2px 10px; border-radius: 99px; }
+.plan .nazev { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--inkoust-2); }
+.plan .cena { font-family: var(--disp); font-weight: 800; font-size: 32px; letter-spacing: -.02em; margin: 10px 0 0; }
+.plan .cena span { font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: 0; color: var(--inkoust-2); }
+.plan ul { list-style: none; margin: 18px 0 22px; flex: 1; }
+.plan li { font-size: 14px; color: var(--inkoust-2); padding: 5px 0 5px 20px; position: relative; }
+.plan li::before { content: "·"; position: absolute; left: 4px; color: var(--zelen); font-weight: 900; }
+.plan li b { color: var(--inkoust); font-weight: 600; }
+.plan .btn { text-align: center; }
+.cenik-pozn { margin-top: 18px; font-size: 13px; color: var(--inkoust-2); font-family: var(--mono); }
+
+/* FAQ */
+.faq { max-width: 760px; }
+.faq details { border-bottom: 1px solid var(--linka); padding: 4px 0; }
+.faq summary { cursor: pointer; font-family: var(--disp); font-weight: 700; font-size: 16.5px; padding: 16px 0; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--mono); color: var(--zelen); font-weight: 600; }
+.faq details[open] summary::after { content: "−"; }
+.faq .odp { padding: 0 0 18px; font-size: 15px; color: var(--inkoust-2); max-width: 640px; }
+
+/* závěrečná výzva */
+.final { background: var(--inkoust); color: #fff; border-radius: 16px; padding: 56px 48px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; }
+@media (max-width: 860px) { .final { grid-template-columns: 1fr; padding: 40px 28px; } }
+.final h2 { color: #fff; margin-top: 0; }
+.final p { color: #B9C6D2; font-size: 16px; }
+.final .pilot { font-family: var(--mono); font-size: 13px; color: #7FCBA4; margin-top: 14px; }
+.final .cta { display: flex; flex-direction: column; gap: 12px; }
+.final .btn.obrys { color: #fff; border-color: rgba(255,255,255,.5); }
+.final .btn.obrys:hover { background: #fff; color: var(--inkoust); }
+
+footer { padding: 40px 0 56px; font-size: 13px; color: var(--inkoust-2); }
+footer .wrap { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+footer a { color: var(--inkoust-2); }
 </style>
 </head>
 <body>
+
 <header>
-  <div class="wrap">
-    <div class="logo"><div class="logo-mark">PA</div>Pohoda Analytics <span style="font-size:11px;color:var(--muted);font-weight:500">pracovní název</span></div>
-    <a class="btn" href="../app/index.html">Vyzkoušet demo</a>
+  <div class="hd">
+    <a class="wordmark" href="#">Pohoda&nbsp;Analytics <span class="wip">pracovní název</span></a>
+    <nav class="top" aria-label="Hlavní navigace">
+      <a href="#moduly">Moduly</a>
+      <a href="#jak">Jak to funguje</a>
+      <a href="#cenik">Ceník</a>
+    </nav>
+    <a class="btn maly" href="../app/">Otevřít demo</a>
   </div>
 </header>
 
-<section class="hero wrap">
-  <h1>Rozumějte svojí firmě <em>za 10 minut</em>.<br>Přímo z dat v POHODĚ.</h1>
-  <p>Obrat, marže, pohledávky, sklad — přehledně, aktuálně a srozumitelně.
-  Bez konzultanta, bez Excelu, bez čekání na účetní závěrku.</p>
-  <div class="cta">
-    <a class="btn" href="../app/index.html">Vyzkoušet zdarma na vlastních datech</a>
-    <a class="btn ghost" href="../app/index.html#prehled">Prohlédnout demo firmu</a>
-  </div>
-  <div class="note">Stačí XML export z Pohody. Vaše data neopustí váš prohlížeč.</div>
-</section>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Analytika pro IS POHODA</div>
+      <h1>Každé ráno víte, jak firma jede.</h1>
+      <p class="sub">Napojíme se na vaši Pohodu a proměníme účetní data v odpovědi:
+      obrat, marže, pohledávky, sklad i plnění plánu. Bez Excelu, bez konzultanta.</p>
+      <div class="cta">
+        <a class="btn" href="../app/">Vyzkoušet živé demo</a>
+        <a class="btn obrys" href="../app/#import">Analýza vlastních dat zdarma</a>
+      </div>
+      <p class="pozn"><strong>Zkušební analýza běží ve vašem prohlížeči.</strong>
+      Přetáhnete XML export z Pohody — a účetní data nikam neodesíláte.</p>
+    </div>
 
-<section class="strip">
+    <aside class="report" aria-label="Ukázka ranního přehledu">
+      <div class="hlava">
+        <span class="titulek">Ranní přehled · so 5. 7. 2026</span>
+        <span class="sync">sync 06:00</span>
+      </div>
+      <div class="radek">
+        <div class="otazka">Jedeme na plán?</div>
+        <div class="odpoved">tempo <b class="cislo-minus">85 %</b> · za plánem o <b>1 597 000 Kč</b><br>odhad dojezdu roku <b>18,5 mil. Kč</b> z plánu 21,8</div>
+      </div>
+      <div class="radek">
+        <div class="otazka">Kdo nám dluží?</div>
+        <div class="odpoved">po splatnosti <b class="cislo-minus">653 125 Kč</b> · 32 faktur<br>nejdéle: Cyklo Novák s.r.o. — <b>92 dní</b></div>
+      </div>
+      <div class="radek">
+        <div class="otazka">Co sklad?</div>
+        <div class="odpoved"><b class="cislo-minus">6 položek</b> do 30 dnů vyprodáno<br>Energetický gel 32g — vydrží <b>19 dní</b></div>
+      </div>
+      <div class="radek">
+        <div class="otazka">Včerejší tržby</div>
+        <div class="odpoved"><b>84 260 Kč</b> · <b class="cislo-plus">+12 %</b> proti stejnému dni loni</div>
+      </div>
+      <div class="pata"><a href="../app/">otevřít celý dashboard →</a></div>
+    </aside>
+  </section>
+</main>
+
+<div class="fakta">
   <div class="wrap">
-    <h2>Co uvidíte první den</h2>
-    <div class="features">
-      <div class="feature"><div class="ico">📈</div><h3>Obrat a marže</h3><p>Měsíční vývoj, meziroční srovnání, kumulativní plnění roku. Konečně víte, jestli letos rostete.</p></div>
-      <div class="feature"><div class="ico">⏰</div><h3>Kdo vám dluží</h3><p>Pohledávky po splatnosti podle stáří i odběratele. Ranní přehled místo nepříjemných překvapení.</p></div>
-      <div class="feature"><div class="ico">📦</div><h3>Sklad pod kontrolou</h3><p>Hodnota zásob, položky pod minimem, mrtvý sklad. Peníze, které leží na regálu.</p></div>
-      <div class="feature"><div class="ico">🤝</div><h3>Top zákazníci</h3><p>Kdo tvoří váš obrat, které segmenty rostou a na kom jste závislí.</p></div>
-      <div class="feature"><div class="ico">🔒</div><h3>Bezpečný trial</h3><p>Zkušební analýza běží kompletně ve vašem prohlížeči — účetní data nikam neodesíláme.</p></div>
-      <div class="feature"><div class="ico">🤖</div><h3>AI shrnutí <span style="font-size:11px;color:var(--muted)">(připravujeme)</span></h3><p>Měsíční výsledky lidskou řečí a upozornění na anomálie dřív, než je najdete sami.</p></div>
-    </div>
+    <div class="fakt"><span>Funguje se <b>všemi edicemi Pohody</b> — MDB, SQL i E1</span></div>
+    <div class="fakt"><span><b>Žádný zásah do Pohody</b> ani otevírání portů</span></div>
+    <div class="fakt"><span>První přehledy <b>do 10 minut</b> od instalace</span></div>
   </div>
-</section>
+</div>
 
-<section class="pricing wrap" id="cenik">
-  <h2>Ceník (návrh)</h2>
-  <div class="plans">
-    <div class="plan">
-      <h3>Zdarma</h3><div class="price">0 Kč</div><div class="per">navždy</div>
-      <ul><li>ruční import XML exportu</li><li>všechny přehledy</li><li>1 uživatel</li><li>data jen ve vašem prohlížeči</li></ul>
-      <a class="btn ghost" href="../app/index.html">Vyzkoušet</a>
+<main class="wrap">
+  <section class="blok" id="moduly">
+    <div class="sekce-hlava">
+      <div class="eyebrow">Moduly</div>
+      <h2>Kniha, která odpovídá.</h2>
+      <p>Každý modul čte konkrétní agendy vaší Pohody — a místo tabulek vrací odpovědi.
+      Kód u řádku říká, odkud čísla jsou.</p>
     </div>
-    <div class="plan">
-      <h3>Solo</h3><div class="price">690 Kč</div><div class="per">měsíčně bez DPH</div>
-      <ul><li>automatický sync s Pohodou</li><li>1 účetní jednotka</li><li>2 uživatelé</li><li>e-mailový týdenní přehled</li></ul>
-      <a class="btn ghost" href="mailto:juraj@giacko.sk?subject=Pohoda%20Analytics%20—%20Solo">Mám zájem</a>
+    <div class="kniha">
+      <article class="zaznam">
+        <div class="agenda"><b>FV</b> · vydané faktury</div>
+        <div>
+          <h3>Prodej &amp; plnění plánu</h3>
+          <p class="popis">Obrat po měsících, meziroční srovnání a roční plán rozpadlý
+          na obchodníky. Ráno víte, kdo jede na plán a kdo ne.</p>
+        </div>
+        <div class="ukazka">plán 2026 <span class="mira">·</span> 21 755 000 Kč<br>plnění k dnešku <span class="mira">·</span> 40,9 % <span class="mira">· tempo 85 %</span></div>
+      </article>
+      <article class="zaznam">
+        <div class="agenda"><b>FV · FP</b> · faktury</div>
+        <div>
+          <h3>Pohledávky &amp; závazky</h3>
+          <p class="popis">Kdo dluží vám a komu dlužíte vy — podle stáří, s ranním
+          seznamem na upomínky. Konec překvapení na účtu.</p>
+        </div>
+        <div class="ukazka">po splatnosti <span class="mira">·</span> 653 125 Kč<br>90+ dní <span class="mira">·</span> 4 faktury <span class="mira">· 2 odběratelé</span></div>
+      </article>
+      <article class="zaznam">
+        <div class="agenda"><b>SKL</b> · zásoby</div>
+        <div>
+          <h3>Sklad s predikcí</h3>
+          <p class="popis">Hodnota zásob a rychlost prodeje: u každé položky vidíte,
+          za kolik dní se vyprodá. Objednáte dřív, než dojde.</p>
+        </div>
+        <div class="ukazka">GEL-ENE-32 <span class="mira">·</span> vydrží 19 dní<br>hodnota skladu <span class="mira">·</span> 2 621 175 Kč</div>
+      </article>
+      <article class="zaznam">
+        <div class="agenda"><b>ADR</b> · adresář</div>
+        <div>
+          <h3>Zákazníci <span class="stitek">připravujeme</span></h3>
+          <p class="popis">Kteří odběratelé rostou, kteří mizí a jak moc závisíte
+          na těch největších.</p>
+        </div>
+        <div class="ukazka">top 3 odběratelé <span class="mira">·</span> 38 % obratu<br>ztracení za 12 měsíců <span class="mira">·</span> 7 firem</div>
+      </article>
+      <article class="zaznam">
+        <div class="agenda"><b>AI</b> · nad všemi agendami</div>
+        <div>
+          <h3>Měsíční shrnutí <span class="stitek">připravujeme</span></h3>
+          <p class="popis">Výsledky měsíce lidskou řečí a upozornění na anomálie —
+          propad marže nebo rostoucí dluh konkrétního odběratele.</p>
+        </div>
+        <div class="ukazka">„Červen: obrat +9 %, ale marže klesla<br>o 2,1 b. — táhne ji dolů akce u řetězců."</div>
+      </article>
     </div>
-    <div class="plan hot">
-      <h3>Firma</h3><div class="price">1 490 Kč</div><div class="per">měsíčně bez DPH</div>
-      <ul><li>3 účetní jednotky</li><li>10 uživatelů</li><li>AI shrnutí a anomálie</li><li>PDF reporty pro banku či board</li></ul>
-      <a class="btn" href="mailto:juraj@giacko.sk?subject=Pohoda%20Analytics%20—%20Firma">Mám zájem</a>
+  </section>
+
+  <section class="blok" id="jak">
+    <div class="sekce-hlava">
+      <div class="eyebrow">Jak to funguje</div>
+      <h2>Instalace bez ajťáka.</h2>
     </div>
-    <div class="plan">
-      <h3>Kancelář</h3><div class="price">2 990 Kč</div><div class="per">měsíčně bez DPH</div>
-      <ul><li>10 účetních jednotek</li><li>white-label reporty klientům</li><li>neomezeně uživatelů</li><li>prioritní podpora</li></ul>
-      <a class="btn ghost" href="mailto:juraj@giacko.sk?subject=Pohoda%20Analytics%20—%20Kancelar">Mám zájem</a>
+    <div class="kroky">
+      <div class="krok">
+        <h3>Stáhnete konektor</h3>
+        <p>Malý program na počítač nebo server, kde běží Pohoda. Nic se v ní
+        nenastavuje, žádné porty se neotevírají.</p>
+      </div>
+      <div class="krok">
+        <h3>Spárujete s účtem</h3>
+        <p>Jednorázový párovací kód z webu. Konektor si dál všechno řídí sám
+        a aktualizuje se.</p>
+      </div>
+      <div class="krok">
+        <h3>Čtete odpovědi</h3>
+        <p>Každou hodinu čerstvá čísla — v prohlížeči i na mobilu, pro vás
+        i kolegy podle oprávnění.</p>
+      </div>
     </div>
-  </div>
-</section>
+    <p class="bez-instalace"><b>Nechcete nic instalovat?</b> Přetáhněte XML export
+    z Pohody přímo do prohlížeče. Analýza proběhne lokálně u vás — data nikam
+    neodcházejí. <a href="../app/#import">Vyzkoušet teď →</a></p>
+  </section>
+
+  <section class="blok" id="cenik">
+    <div class="sekce-hlava">
+      <div class="eyebrow">Ceník</div>
+      <h2>Od nuly po účetní kancelář.</h2>
+    </div>
+    <div class="plany">
+      <div class="plan">
+        <div class="nazev">Zdarma</div>
+        <div class="cena">0 Kč</div>
+        <ul>
+          <li><b>ruční import XML</b> v prohlížeči</li>
+          <li>všechny přehledy</li>
+          <li>1 uživatel</li>
+          <li>data zůstávají u vás</li>
+        </ul>
+        <a class="btn obrys" href="../app/#import">Vyzkoušet</a>
+      </div>
+      <div class="plan">
+        <div class="nazev">Solo</div>
+        <div class="cena">690 Kč <span>/ měsíc bez DPH</span></div>
+        <ul>
+          <li><b>automatický sync</b> s Pohodou</li>
+          <li>1 účetní jednotka</li>
+          <li>2 uživatelé</li>
+          <li>týdenní přehled e-mailem</li>
+        </ul>
+        <a class="btn obrys" href="mailto:juraj@giacko.sk?subject=Solo%20tarif">Mám zájem</a>
+      </div>
+      <div class="plan hlavni">
+        <div class="nazev">Firma</div>
+        <div class="cena">1 490 Kč <span>/ měsíc bez DPH</span></div>
+        <ul>
+          <li>3 účetní jednotky</li>
+          <li>10 uživatelů</li>
+          <li><b>AI shrnutí a anomálie</b></li>
+          <li>PDF reporty pro banku či board</li>
+        </ul>
+        <a class="btn" href="mailto:juraj@giacko.sk?subject=Firma%20tarif">Mám zájem</a>
+      </div>
+      <div class="plan">
+        <div class="nazev">Kancelář</div>
+        <div class="cena">2 990 Kč <span>/ měsíc bez DPH</span></div>
+        <ul>
+          <li>10 účetních jednotek</li>
+          <li><b>white-label reporty</b> klientům</li>
+          <li>neomezeně uživatelů</li>
+          <li>prioritní podpora</li>
+        </ul>
+        <a class="btn obrys" href="mailto:juraj@giacko.sk?subject=Kancel%C3%A1%C5%99%20tarif">Mám zájem</a>
+      </div>
+    </div>
+    <p class="cenik-pozn">roční platba −20 % · ceny jsou návrh pro pilotní provoz</p>
+  </section>
+
+  <section class="blok" id="faq">
+    <div class="sekce-hlava">
+      <div class="eyebrow">Časté otázky</div>
+      <h2>Na rovinu.</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Kde skončí naše účetní data?</summary>
+        <p class="odp">Ve zkušební verzi nikde — analýza XML exportu proběhne ve vašem
+        prohlížeči a zavřením záložky zmizí. V placených tarifech se data ukládají
+        šifrovaně na serverech v EU a smlouva o zpracování (DPA) je součástí podmínek.</p>
+      </details>
+      <details>
+        <summary>Kterou edici Pohody potřebuji?</summary>
+        <p class="odp">Libovolnou — MDB, SQL i E1. Konektor používá oficiální XML
+        komunikaci Pohody, která je součástí všech edic.</p>
+      </details>
+      <details>
+        <summary>Musí se něco nastavovat v Pohodě?</summary>
+        <p class="odp">Ne. Konektor potřebuje jen uživatelský účet Pohody, pod kterým
+        čte data. Neinstalují se doplňky, neotevírají porty, nezasahuje se do databáze.</p>
+      </details>
+      <details>
+        <summary>Vedu účetnictví více firmám. Dává to smysl?</summary>
+        <p class="odp">Ano — tarif Kancelář počítá s více účetními jednotkami pod jedním
+        účtem a s reporty, které pošlete klientům pod vlastní hlavičkou.</p>
+      </details>
+      <details>
+        <summary>Jste STORMWARE?</summary>
+        <p class="odp">Nejsme. POHODA je ochranná známka STORMWARE s.r.o. a tento nástroj
+        není jejich produktem — jen umí číst data, která v Pohodě už máte.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="blok">
+    <div class="final">
+      <div>
+        <h2>Podívejte se na svá čísla ještě dnes.</h2>
+        <p>Demo s ukázkovou firmou je otevřené — a vlastní data do něj nahrajete
+        za dvě minuty, bez registrace.</p>
+        <p class="pilot">Hledáme 3 pilotní firmy: 6 měsíců zdarma výměnou za zpětnou vazbu.</p>
+      </div>
+      <div class="cta">
+        <a class="btn" href="../app/">Otevřít živé demo</a>
+        <a class="btn obrys" href="mailto:juraj@giacko.sk?subject=Pilotn%C3%AD%20provoz">Chci být pilot</a>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer>
   <div class="wrap">
-    POHODA je ochranná známka STORMWARE s.r.o. Tento nástroj není produktem společnosti
-    STORMWARE s.r.o. a není s ní nijak spojen. · Kontakt: juraj@giacko.sk
+    <span>POHODA je ochranná známka STORMWARE s.r.o. Tento nástroj není produktem
+    společnosti STORMWARE s.r.o. a není s ní nijak spojen.</span>
+    <span>Kontakt: <a href="mailto:juraj@giacko.sk">juraj@giacko.sk</a></span>
   </div>
 </footer>
+
 </body>
 </html>
