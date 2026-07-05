@@ -129,19 +129,20 @@ const moneyTicks = { callback: (v) => czkShort(v) };
 const views = {
   prehled: { title: "Přehled", render: renderPrehled },
   prodej: { title: "Prodej", render: renderProdej },
+  plan: { title: "Plán & plnění", render: renderPlan },
   pohledavky: { title: "Pohledávky & Závazky", render: renderPohledavky },
   sklad: { title: "Sklad", render: renderSklad },
   import: { title: "Napojení na Pohodu", render: renderImport },
 };
 let currentView = "prehled";
 
-function kpiCard(label, value, delta, invertColors = false) {
+function kpiCard(label, value, delta, invertColors = false, deltaLabel = "vs. předchozí období") {
   let deltaHtml = "";
   if (delta !== null && delta !== undefined && isFinite(delta)) {
     const up = delta >= 0;
     const good = invertColors ? !up : up;
     const cls = Math.abs(delta) < 0.005 ? "flat" : good ? "up" : "down";
-    deltaHtml = `<div class="kpi-delta ${cls}">${up ? "▲" : "▼"} ${(Math.abs(delta) * 100).toLocaleString("cs-CZ", { maximumFractionDigits: 1 })} % vs. předchozí období</div>`;
+    deltaHtml = `<div class="kpi-delta ${cls}">${up ? "▲" : "▼"} ${(Math.abs(delta) * 100).toLocaleString("cs-CZ", { maximumFractionDigits: 1 })} % ${deltaLabel}</div>`;
   }
   return `<div class="card"><div class="kpi-label">${label}</div><div class="kpi-value">${value}</div>${deltaHtml}</div>`;
 }
@@ -288,6 +289,87 @@ function renderProdej(el) {
   });
 }
 
+function renderPlan(el) {
+  // plán se váže na rok: bere vybraný rok z filtru, jinak běžící rok
+  const year = /^\d{4}$/.test(period) ? period : String(new Date(TODAY).getFullYear());
+  const plan = (DATA.plan || {})[year];
+  if (!plan) {
+    el.innerHTML = `<div class="card"><h3>Plán pro rok ${year} není k dispozici</h3>
+      <p class="small muted">V demu jsou plány pro roky ${Object.keys(DATA.plan || {}).join(", ") || "—"}. Přepněte období nahoře.</p></div>`;
+    return;
+  }
+
+  const range = [`${year}-01-01`, `${year}-12-31`];
+  const iss = DATA.invoices_issued.filter((i) => inRange(i.date, range));
+  const actual = sum(iss);
+  const isCurrentYear = year === TODAY.slice(0, 4);
+
+  // očekávané plnění k dnešku: celé uplynulé měsíce + poměrná část běžícího
+  let expected = 0;
+  if (isCurrentYear) {
+    const curMonth = +TODAY.slice(5, 7);
+    const dayFrac = +TODAY.slice(8, 10) / 30;
+    for (let m = 1; m <= curMonth; m++) {
+      const v = plan.monthly[`${year}-${String(m).padStart(2, "0")}`] || 0;
+      expected += m < curMonth ? v : v * dayFrac;
+    }
+  } else {
+    expected = plan.annual;
+  }
+  const pace = expected ? actual / expected : 0;
+  const forecast = expected ? actual / expected * plan.annual : actual;
+  const fulfil = actual / plan.annual;
+
+  const monthsLbl = Object.keys(plan.monthly);
+  const actualByMonth = new Map(monthly(iss, range));
+
+  // obchodníci
+  const spActual = new Map();
+  for (const i of iss) spActual.set(i.salesperson || "Nepřiřazeno", (spActual.get(i.salesperson || "Nepřiřazeno") || 0) + i.total);
+  const spRows = Object.entries(plan.salespeople).map(([sp, target]) => {
+    const act = spActual.get(sp) || 0;
+    const spExpected = expected / plan.annual * target;
+    return { sp, target, act, fulfil: target ? act / target : 0, pace: spExpected ? act / spExpected : 0 };
+  }).sort((a, b) => b.act - a.act);
+
+  el.innerHTML = `
+    <div class="grid kpi">
+      ${kpiCard(`Roční plán ${year}`, czk(plan.annual), null)}
+      ${kpiCard(isCurrentYear ? "Realita k dnešku" : "Skutečnost", czk(actual), null)}
+      ${kpiCard("Plnění ročního plánu", (fulfil * 100).toLocaleString("cs-CZ", { maximumFractionDigits: 1 }) + " %", null)}
+      <div class="card"><div class="kpi-label">Tempo vůči plánu</div>
+        <div class="kpi-value">${(pace * 100).toLocaleString("cs-CZ", { maximumFractionDigits: 0 })} %</div>
+        <div class="kpi-delta ${pace >= 1 ? "up" : "down"}">${pace >= 1 ? "▲ před plánem" : "▼ za plánem"} o ${czkShort(Math.abs(actual - expected))} Kč</div></div>
+      ${isCurrentYear ? kpiCard("Odhad dojezdu roku", czk(forecast), forecast / plan.annual - 1, false, "vs. plán") : ""}
+    </div>
+    <div class="card"><h3>Plán vs. realita po měsících</h3><div class="chart-wrap"><canvas id="chPlan"></canvas></div></div>
+    <div class="card">
+      <h3>Plnění podle obchodníků <span class="muted" style="font-weight:400">(v Pohodě pole „středisko" / „kdo řeší")</span></h3>
+      <table><thead><tr><th>Obchodník</th><th class="num">Plán ${year}</th><th class="num">Realita</th><th class="num">Plnění</th><th class="num">Tempo</th><th style="width:26%"></th></tr></thead>
+      <tbody>${spRows.map((r) => `<tr>
+        <td>${r.sp}</td><td class="num">${czk(r.target)}</td><td class="num">${czk(r.act)}</td>
+        <td class="num">${(r.fulfil * 100).toFixed(1)} %</td>
+        <td class="num"><span class="badge ${r.pace >= 1 ? "green" : r.pace >= 0.9 ? "amber" : "red"}">${(r.pace * 100).toFixed(0)} %</span></td>
+        <td><div class="progress"><div style="width:${Math.min(r.fulfil * 100, 100).toFixed(1)}%"></div></div></td>
+      </tr>`).join("")}</tbody></table>
+    </div>`;
+
+  mkChart("chPlan", {
+    data: {
+      labels: monthsLbl.map(monthLabel),
+      datasets: [
+        { type: "bar", label: "Realita", data: monthsLbl.map((ym) => actualByMonth.get(ym) ?? (ym <= TODAY.slice(0, 7) ? 0 : null)), backgroundColor: "#2563eb", borderRadius: 5 },
+        { type: "line", label: "Plán", data: monthsLbl.map((ym) => plan.monthly[ym]), borderColor: "#0f172a", borderDash: [6, 4], pointRadius: 3, pointBackgroundColor: "#0f172a", tension: 0 },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: { y: { ...gridOpts, ticks: moneyTicks }, x: { grid: { display: false }, border: { display: false } } },
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, boxHeight: 12 } }, tooltip: { callbacks: { label: (c) => c.dataset.label + ": " + czk(c.raw) } } },
+    },
+  });
+}
+
 function renderPohledavky(el) {
   const unpaidIss = DATA.invoices_issued.filter((i) => !i.paid).sort((a, b) => a.due_date < b.due_date ? -1 : 1);
   const unpaidRcv = DATA.invoices_received.filter((i) => !i.paid).sort((a, b) => a.due_date < b.due_date ? -1 : 1);
@@ -340,9 +422,26 @@ function renderPohledavky(el) {
   });
 }
 
+/* rychlost prodeje za posledních 90 dní (z položek faktur) -> dny do vyprodání */
+function stockVelocity() {
+  const from = new Date(TODAY); from.setDate(from.getDate() - 90);
+  const fromIso = from.toISOString().slice(0, 10);
+  const sold = new Map();
+  for (const i of DATA.invoices_issued) {
+    if (i.date < fromIso || !i.items) continue;
+    for (const it of i.items) sold.set(it.code, (sold.get(it.code) || 0) + it.qty);
+  }
+  return (code, qty) => {
+    const daily = (sold.get(code) || 0) / 90;
+    return daily > 0 ? Math.round(qty / daily) : null;
+  };
+}
+
 function renderSklad(el) {
-  const stock = [...DATA.stock].sort((a, b) => b.value - a.value);
+  const daysLeft = stockVelocity();
+  const stock = [...DATA.stock].map((s) => ({ ...s, days: daysLeft(s.code, s.qty) })).sort((a, b) => b.value - a.value);
   const low = stock.filter((s) => s.qty < s.min_qty);
+  const soonOut = stock.filter((s) => s.days !== null && s.days <= 30);
   const byCat = new Map();
   for (const s of stock) byCat.set(s.category, (byCat.get(s.category) || 0) + s.value);
   const cats = [...byCat.entries()].sort((a, b) => b[1] - a[1]);
@@ -352,15 +451,17 @@ function renderSklad(el) {
       ${kpiCard("Hodnota skladu (nákupní ceny)", czk(sum(stock, (s) => s.value)), null)}
       ${kpiCard("Počet položek", fmtK.format(stock.length), null)}
       ${kpiCard("Pod minimem", fmtK.format(low.length), null)}
+      ${kpiCard("Do 30 dní vyprodáno", fmtK.format(soonOut.length) + " položek", null)}
       ${kpiCard("Prodejní hodnota skladu", czk(sum(stock, (s) => s.qty * s.selling_price)), null)}
     </div>
     <div class="grid two">
       <div class="card">
         <h3>Skladové položky</h3>
         <div class="table-scroll" style="max-height:480px;overflow-y:auto"><table>
-          <thead><tr><th>Kód</th><th>Název</th><th class="num">Zásoba</th><th class="num">Hodnota</th><th>Stav</th></tr></thead>
+          <thead><tr><th>Kód</th><th>Název</th><th class="num">Zásoba</th><th class="num">Hodnota</th><th class="num">Vydrží</th><th>Stav</th></tr></thead>
           <tbody>${stock.map((s) => `<tr><td>${s.code}</td><td>${s.name}</td>
             <td class="num">${fmtK.format(s.qty)} ${s.unit}</td><td class="num">${czk(s.value)}</td>
+            <td class="num">${s.days === null ? '<span class="muted">—</span>' : s.days <= 30 ? `<span class="badge red">${s.days} dní</span>` : s.days <= 60 ? `<span class="badge amber">${s.days} dní</span>` : `${s.days} dní`}</td>
             <td>${s.qty < s.min_qty ? '<span class="badge red">pod minimem</span>' : '<span class="badge green">OK</span>'}</td></tr>`).join("")}</tbody>
         </table></div>
       </div>

@@ -10,11 +10,11 @@ není produktem Stormware; finální brand bude vlastní (viz docs/STRATEGY.md).
 
 | Cesta | Obsah |
 |---|---|
-| `app/` | Demo dashboard (statický SPA, vanilla JS + Chart.js) — Přehled, Prodej, Pohledávky & Závazky, Sklad, XML import |
+| `app/` | Demo dashboard (statický SPA, vanilla JS + Chart.js) — Přehled, Prodej, Plán & plnění, Pohledávky & Závazky, Sklad s predikcí vyprodání, XML import |
 | `connector/generate_demo_data.py` | Generátor dat fiktivní firmy → `app/data.js` |
 | `connector/pohoda_xml_parser.py` | Parser Pohoda XML exportů (invoice/order/stock.xsd) → stejný datový model |
 | `site/` | Návrh marketingové landing page |
-| `docs/` | Strategie, konkurenční analýza (FameDash), architektura |
+| `docs/` | Strategie, konkurenční analýza (FameDash), architektura, mapa modulů z Vitar Analytics |
 
 ## Spuštění dema
 

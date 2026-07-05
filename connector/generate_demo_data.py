@@ -19,6 +19,8 @@ random.seed(42)
 TODAY = date(2026, 7, 5)
 MONTHS_BACK = 30  # ~2,5 roku historie kvůli meziročnímu srovnání
 
+SALESPEOPLE = ["Petra Králová", "Jan Dvořák", "Martin Svoboda"]
+
 PARTNERS = [
     # (název, IČO, segment, velikost 0-1)
     ("Sportisimo Distribuce s.r.o.", "25112233", "B2B řetězec", 1.0),
@@ -97,6 +99,9 @@ def growth_factor(y, m):
     months_from_start = (y - 2024) * 12 + m
     return 1.0 * (1.01 ** months_from_start)
 
+# každý partner má přiřazeného obchodníka (v Pohodě pole "středisko" / "kdo řeší")
+PARTNER_SALESPERSON = {p[0]: SALESPEOPLE[i % len(SALESPEOPLE)] for i, p in enumerate(PARTNERS)}
+
 invoices_issued = []
 invoices_received = []
 orders = []
@@ -148,6 +153,7 @@ for (y, m) in month_iter(MONTHS_BACK):
         invoices_issued.append({
             "number": str(inv_no), "date": d.isoformat(), "due_date": due.isoformat(),
             "partner": partner[0], "ico": partner[1], "segment": partner[2],
+            "salesperson": PARTNER_SALESPERSON[partner[0]],
             "total": total, "currency": "CZK",
             "paid": paid, "paid_date": paid_date.isoformat() if paid_date else None,
             "items": items,
@@ -198,6 +204,31 @@ for (code, name, cat, buy, sell) in PRODUCTS:
         "min_qty": random.choice([50, 100, 200]),
     })
 
+# plány: minulý rok × růstový cíl, rozpad na měsíce a obchodníky
+def build_plan(plan_year, growth):
+    prev = plan_year - 1
+    monthly_actual = {}
+    sp_actual = {sp: 0.0 for sp in SALESPEOPLE}
+    for i in invoices_issued:
+        if i["date"].startswith(str(prev)):
+            ym_m = int(i["date"][5:7])
+            monthly_actual[ym_m] = monthly_actual.get(ym_m, 0) + i["total"]
+            sp_actual[i["salesperson"]] += i["total"]
+    if not monthly_actual:
+        return None
+    monthly = {f"{plan_year}-{m:02d}": round(monthly_actual.get(m, 0) * growth, -3) for m in range(1, 13)}
+    annual = round(sum(monthly.values()), -3)
+    prev_total = sum(sp_actual.values()) or 1
+    salespeople = {sp: round(annual * v / prev_total, -3) for sp, v in sp_actual.items()}
+    return {"annual": annual, "growth_target": round(growth - 1, 2),
+            "monthly": monthly, "salespeople": salespeople}
+
+plans = {}
+for y, g in ((2025, 1.12), (2026, 1.15)):
+    p = build_plan(y, g)
+    if p:
+        plans[str(y)] = p
+
 data = {
     "meta": {
         "company": "Demo Sport Distribuce s.r.o.",
@@ -213,6 +244,7 @@ data = {
         {"name": "Fio EUR účet", "number": "2500998877/2010", "balance": 18420.55, "currency": "EUR"},
         {"name": "Pokladna", "number": "-", "balance": 48210.00, "currency": "CZK"},
     ],
+    "plan": plans,
     "invoices_issued": invoices_issued,
     "invoices_received": invoices_received,
     "orders": orders,
