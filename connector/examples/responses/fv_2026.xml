@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp:responsePack version="2.0" id="fv2026" ico="12345678" key="00000000-0000-0000-0000-000000000000" programVersion="14000.4 E1 (7.5.2026)" application="PohodaAnalytics" state="ok" note=""
+ xmlns:rsp="http://www.stormware.cz/schema/version_2/response.xsd"
+ xmlns:lst="http://www.stormware.cz/schema/version_2/list.xsd"
+ xmlns:inv="http://www.stormware.cz/schema/version_2/invoice.xsd"
+ xmlns:typ="http://www.stormware.cz/schema/version_2/type.xsd">
+ <rsp:responsePackItem version="2.0" id="fv2026-1" state="ok">
+  <lst:listInvoice version="2.0" dateTimeStamp="2026-07-05T08:00:00" dateValidFrom="2026-01-01" state="ok">
+   <lst:invoice version="2.0">
+    <inv:invoiceHeader>
+     <inv:invoiceType>issuedInvoice</inv:invoiceType>
+     <inv:number><typ:numberRequested>260100042</typ:numberRequested></inv:number>
+     <inv:symVar>260100042</inv:symVar>
+     <inv:date>2026-06-12</inv:date>
+     <inv:dateDue>2026-06-26</inv:dateDue>
+     <inv:text>Fakturujeme Vám zboží dle objednávky</inv:text>
+     <inv:partnerIdentity>
+      <typ:address>
+       <typ:company>Ukázková firma s.r.o.</typ:company>
+       <typ:city>Brno</typ:city>
+       <typ:street>Nová 12</typ:street>
+       <typ:ico>25599641</typ:ico>
+      </typ:address>
+     </inv:partnerIdentity>
+     <inv:centre><typ:ids>JGO</typ:ids></inv:centre>
+     <inv:liquidation>
+      <typ:date>2026-06-25</typ:date>
+      <typ:amountHome>18150.00</typ:amountHome>
+     </inv:liquidation>
+    </inv:invoiceHeader>
+    <inv:invoiceDetail>
+     <inv:invoiceItem>
+      <inv:text>Iontový nápoj 1kg citron</inv:text>
+      <inv:quantity>24</inv:quantity>
+      <inv:code>ION-1000-CIT</inv:code>
+      <inv:homeCurrency>
+       <typ:unitPrice>250.00</typ:unitPrice>
+       <typ:price>6000.00</typ:price>
+       <typ:priceVAT>1260.00</typ:priceVAT>
+       <typ:priceSum>7260.00</typ:priceSum>
+      </inv:homeCurrency>
+     </inv:invoiceItem>
+     <inv:invoiceItem>
+      <inv:text>Energetický gel 32g</inv:text>
+      <inv:quantity>300</inv:quantity>
+      <inv:code>GEL-ENE-32</inv:code>
+      <inv:homeCurrency>
+       <typ:unitPrice>30.00</typ:unitPrice>
+       <typ:price>9000.00</typ:price>
+       <typ:priceVAT>1890.00</typ:priceVAT>
+       <typ:priceSum>10890.00</typ:priceSum>
+      </inv:homeCurrency>
+     </inv:invoiceItem>
+    </inv:invoiceDetail>
+    <inv:invoiceSummary>
+     <inv:homeCurrency>
+      <typ:priceHigh>15000.00</typ:priceHigh>
+      <typ:priceHighVAT>3150.00</typ:priceHighVAT>
+      <typ:priceHighSum>18150.00</typ:priceHighSum>
+      <typ:round><typ:priceRound>0</typ:priceRound></typ:round>
+     </inv:homeCurrency>
+    </inv:invoiceSummary>
+   </lst:invoice>
+   <lst:invoice version="2.0">
+    <inv:invoiceHeader>
+     <inv:invoiceType>issuedInvoice</inv:invoiceType>
+     <inv:number><typ:numberRequested>260100043</typ:numberRequested></inv:number>
+     <inv:symVar>260100043</inv:symVar>
+     <inv:date>2026-06-20</inv:date>
+     <inv:dateDue>2026-07-20</inv:dateDue>
+     <inv:partnerIdentity>
+      <typ:address>
+       <typ:company>Sport Outlet a.s.</typ:company>
+       <typ:city>Praha</typ:city>
+       <typ:ico>27448099</typ:ico>
+      </typ:address>
+     </inv:partnerIdentity>
+     <inv:centre><typ:ids>KPR</typ:ids></inv:centre>
+    </inv:invoiceHeader>
+    <inv:invoiceSummary>
+     <inv:homeCurrency>
+      <typ:priceHigh>42000.00</typ:priceHigh>
+      <typ:priceHighVAT>8820.00</typ:priceHighVAT>
+      <typ:priceHighSum>50820.00</typ:priceHighSum>
+     </inv:homeCurrency>
+    </inv:invoiceSummary>
+   </lst:invoice>
+  </lst:listInvoice>
+ </rsp:responsePackItem>
+</rsp:responsePack>

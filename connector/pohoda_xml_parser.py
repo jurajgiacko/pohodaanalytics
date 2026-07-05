@@ -91,6 +91,7 @@ def parse_invoice(inv_el):
         "due_date": text(h, "inv:dateDue") or text(h, "inv:date"),
         "partner": (text(partner_el, "typ:company") or text(partner_el, "typ:name") or "Neznámý") if partner_el is not None else "Neznámý",
         "ico": text(partner_el, "typ:ico") if partner_el is not None else None,
+        "centre": text(h, "inv:centre/typ:ids"),
         "segment": text(h, "inv:centre/typ:ids") or "Bez segmentu",
         "total": round(total, 2),
         "currency": text(h, "inv:foreignCurrency/typ:currency/typ:ids") or "CZK",

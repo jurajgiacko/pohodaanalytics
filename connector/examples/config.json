@@ -1,0 +1,23 @@
+{
+  "pohoda_exe": "C:\\Program Files (x86)\\STORMWARE\\POHODA\\Pohoda.exe",
+  "pohoda_user": "@",
+  "pohoda_password": "",
+  "ico": "12345678",
+  "company": "Ukázková firma s.r.o.",
+  "data_dir": "examples",
+  "years": [2025, 2026],
+  "output": "data.js",
+  "cloud": { "url": null, "api_key": null },
+  "mapping": {
+    "channels_by_number_prefix": {
+      "2601": "B2B CZ",
+      "2602": "E-shop CZ",
+      "*": "Ostatní"
+    },
+    "salespeople_by_centre": {
+      "JGO": "Jirka",
+      "KPR": "Karolína",
+      "*": "Nepřiřazeno"
+    }
+  }
+}

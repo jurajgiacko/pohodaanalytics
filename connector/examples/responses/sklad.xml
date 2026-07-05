@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp:responsePack version="2.0" id="stk" ico="12345678" application="PohodaAnalytics" state="ok"
+ xmlns:rsp="http://www.stormware.cz/schema/version_2/response.xsd"
+ xmlns:lStk="http://www.stormware.cz/schema/version_2/list_stock.xsd"
+ xmlns:stk="http://www.stormware.cz/schema/version_2/stock.xsd"
+ xmlns:typ="http://www.stormware.cz/schema/version_2/type.xsd">
+ <rsp:responsePackItem version="2.0" id="stk-1" state="ok">
+  <lStk:listStock version="2.0" dateTimeStamp="2026-07-05T08:00:00" state="ok">
+   <lStk:stock version="2.0">
+    <stk:stockHeader>
+     <stk:stockType>card</stk:stockType>
+     <stk:code>ION-1000-CIT</stk:code>
+     <stk:name>Iontový nápoj 1kg citron</stk:name>
+     <stk:unit>ks</stk:unit>
+     <stk:storage><typ:ids>ZBOŽÍ</typ:ids></stk:storage>
+     <stk:count>420</stk:count>
+     <stk:purchasingPrice>149</stk:purchasingPrice>
+     <stk:sellingPrice>319</stk:sellingPrice>
+     <stk:limitMin>100</stk:limitMin>
+    </stk:stockHeader>
+   </lStk:stock>
+   <lStk:stock version="2.0">
+    <stk:stockHeader>
+     <stk:stockType>card</stk:stockType>
+     <stk:code>GEL-ENE-32</stk:code>
+     <stk:name>Energetický gel 32g</stk:name>
+     <stk:unit>ks</stk:unit>
+     <stk:storage><typ:ids>ZBOŽÍ</typ:ids></stk:storage>
+     <stk:count>1850</stk:count>
+     <stk:purchasingPrice>14</stk:purchasingPrice>
+     <stk:sellingPrice>32</stk:sellingPrice>
+     <stk:limitMin>500</stk:limitMin>
+    </stk:stockHeader>
+   </lStk:stock>
+  </lStk:listStock>
+ </rsp:responsePackItem>
+</rsp:responsePack>

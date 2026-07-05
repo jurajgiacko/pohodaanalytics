@@ -1,3 +1,7 @@
 .DS_Store
 __pycache__/
 *.pyc
+connector/examples/data.js
+connector/examples/requests/
+connector/examples/command.xml
+connector/config.json

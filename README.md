@@ -13,6 +13,7 @@ není produktem Stormware; finální brand bude vlastní (viz docs/STRATEGY.md).
 | `app/` | Demo dashboard (statický SPA, vanilla JS + Chart.js) — Přehled, Prodej, Plán & plnění, Pohledávky & Závazky, Sklad s predikcí vyprodání, XML import |
 | `connector/generate_demo_data.py` | Generátor dat fiktivní firmy → `app/data.js` |
 | `connector/pohoda_xml_parser.py` | Parser Pohoda XML exportů (invoice/order/stock.xsd) → stejný datový model |
+| `connector/sync.py` + `install.bat` | Konektor v1: automatický export z Pohody (`pohoda.exe /XML`), mapování dimenzí, hodinový sync přes Task Scheduler — viz [docs/CONNECTOR.md](docs/CONNECTOR.md) |
 | `site/` | Návrh marketingové landing page |
 | `docs/` | Strategie, konkurenční analýza (FameDash), architektura, mapa modulů z Vitar Analytics |
 
