@@ -99,6 +99,98 @@ h1 { font-family: var(--disp); font-weight: 900; letter-spacing: -.035em; line-h
 .dash .alarm { margin-top: 16px; background: rgba(255,122,92,.1); border: 1px solid rgba(255,122,92,.28); border-radius: 10px; padding: 11px 14px; font-family: var(--mono); font-size: 12px; color: #FFB3A0; display: flex; gap: 10px; align-items: center; }
 .dash .alarm::before { content: "!"; font-weight: 700; width: 18px; height: 18px; flex-shrink: 0; border-radius: 99px; background: var(--cervena); color: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 12px; }
 
+/* plovoucí karty kolem hero dashboardu */
+.dash-obal { position: relative; }
+.fl-karta {
+  position: absolute; background: #fff; color: var(--ink); border-radius: 12px;
+  box-shadow: 0 18px 44px -12px rgba(0,0,0,.5); padding: 13px 16px; font-size: 12.5px;
+  display: flex; gap: 10px; align-items: center; z-index: 2;
+}
+.fl-karta.uhrada { top: -22px; right: -14px; }
+.fl-karta.uhrada .tecka { width: 30px; height: 30px; border-radius: 99px; background: rgba(29,201,124,.16); color: var(--zelen-tmava); display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; }
+.fl-karta .t1 { font-weight: 700; font-family: var(--body); }
+.fl-karta .t2 { font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+.fl-karta.plneni { bottom: -20px; left: -18px; }
+.kolo { width: 44px; height: 44px; border-radius: 99px; flex-shrink: 0;
+  background: conic-gradient(var(--zelen-tmava) 0 147deg, #E8EBE4 147deg 360deg); position: relative; }
+.kolo::after { content: "41%"; position: absolute; inset: 6px; background: #fff; border-radius: 99px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; font-weight: 600; }
+@media (prefers-reduced-motion: no-preference) {
+  .fl-karta { animation: vznaseni 5s ease-in-out infinite alternate; }
+  .fl-karta.plneni { animation-duration: 6.2s; animation-delay: .8s; }
+  @keyframes vznaseni { from { transform: translateY(-4px); } to { transform: translateY(6px); } }
+}
+@media (max-width: 960px) { .fl-karta.uhrada { right: 6px; top: -18px; } .fl-karta.plneni { left: 6px; bottom: -16px; } }
+
+/* ============ product tour – okno prohlížeče ============ */
+.tour-sekce { background: linear-gradient(180deg, var(--papir), #EDF0E9); }
+.taby { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+.tab { font-family: var(--mono); font-size: 12.5px; font-weight: 600; letter-spacing: .04em;
+  border: 1.5px solid var(--linka); background: #fff; color: var(--text-2); border-radius: 99px;
+  padding: 8px 18px; cursor: pointer; transition: all .15s; }
+.tab.aktiv { background: var(--ink); border-color: var(--ink); color: #fff; }
+.tab .pruh-time { display: none; }
+.okno { background: #fff; border-radius: 16px; border: 1px solid var(--linka);
+  box-shadow: 0 50px 100px -40px rgba(10,20,34,.4), 0 20px 40px -24px rgba(10,20,34,.2); overflow: hidden; }
+.okno-lista { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-bottom: 1px solid var(--linka); background: #FBFCFA; }
+.okno-lista .tecky { display: flex; gap: 6px; }
+.okno-lista .tecky i { width: 11px; height: 11px; border-radius: 99px; background: #E2E6DE; }
+.okno-lista .tecky i:first-child { background: #F4A6A0; }
+.okno-lista .tecky i:nth-child(2) { background: #F5D08C; }
+.okno-lista .tecky i:last-child { background: #9FD8B4; }
+.adresa { flex: 1; max-width: 380px; margin: 0 auto; background: #F0F2ED; border-radius: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--text-2); text-align: center; padding: 6px 12px; }
+.app-mock { display: grid; grid-template-columns: 190px 1fr; min-height: 430px; }
+.mock-side { background: var(--ink); padding: 18px 12px; display: flex; flex-direction: column; gap: 4px; }
+@media (max-width: 760px) { .app-mock { grid-template-columns: 1fr; } .mock-side { display: none; } }
+.mock-brand { display: flex; align-items: center; gap: 8px; padding: 4px 10px 14px; color: #fff; font-family: var(--disp); font-weight: 800; font-size: 13px; }
+.mock-brand i { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, var(--zelen), #0C7A4C); display: inline-block; }
+.mock-nav { font-family: var(--mono); font-size: 11.5px; color: #8FA3B8; padding: 9px 12px; border-radius: 8px; }
+.mock-nav.aktiv { background: rgba(29,201,124,.16); color: #fff; }
+.mock-main { padding: 24px 26px; }
+.mock-hlava { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+.mock-hlava h4 { font-family: var(--disp); font-weight: 800; font-size: 18px; letter-spacing: -.02em; }
+.mock-chipy { display: flex; gap: 5px; }
+.mock-chipy i { font-family: var(--mono); font-size: 10.5px; padding: 4px 11px; border-radius: 7px; background: #F0F2ED; color: var(--text-2); font-style: normal; }
+.mock-chipy i.aktiv { background: var(--ink); color: #fff; }
+.mock-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+@media (max-width: 560px) { .mock-kpis { grid-template-columns: 1fr; } }
+.mock-kpi { border: 1px solid var(--linka); border-radius: 10px; padding: 13px 15px; }
+.mock-kpi .l { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); }
+.mock-kpi .v { font-family: var(--disp); font-weight: 800; font-size: 20px; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.mock-kpi .v.minus { color: #C2402E; }
+.mock-kpi .v.plus { color: var(--zelen-tmava); }
+.mock-graf { display: flex; align-items: flex-end; gap: 7px; height: 150px; border: 1px solid var(--linka); border-radius: 10px; padding: 14px 14px 10px; }
+.mock-graf i { flex: 1; border-radius: 4px 4px 2px 2px; background: linear-gradient(180deg, #17A067, #0C7A4C); height: calc(var(--h) * 1%); position: relative; }
+.mock-graf i.cil::after { content: ""; position: absolute; left: -3px; right: -3px; top: calc(-1 * var(--nad) * 1px); border-top: 2px dashed #9AA5B5; }
+.mock-radky { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--linka); border-radius: 10px; overflow: hidden; }
+.mock-radek { display: grid; grid-template-columns: 1.2fr 1fr auto; gap: 14px; align-items: center; padding: 12px 16px; font-size: 13px; border-bottom: 1px solid #F0F2ED; }
+.mock-radek:last-child { border-bottom: 0; }
+.mock-radek .jmeno { font-weight: 600; }
+.mock-radek .pruh { height: 8px; border-radius: 99px; background: #EEF1EA; overflow: hidden; }
+.mock-radek .pruh i { display: block; height: 100%; border-radius: 99px; background: var(--zelen-tmava); width: calc(var(--w) * 1%); }
+.mock-radek .stav { font-family: var(--mono); font-size: 11.5px; font-weight: 600; padding: 3px 10px; border-radius: 7px; white-space: nowrap; }
+.mock-radek .stav.ok { color: var(--zelen-tmava); background: rgba(12,122,76,.09); }
+.mock-radek .stav.pozor { color: #A05A00; background: rgba(255,179,36,.18); }
+.mock-radek .stav.zle { color: #B33A22; background: rgba(228,87,59,.13); }
+.mock-pane { display: none; }
+.mock-pane.aktiv { display: block; animation: pane-in .35s ease; }
+@keyframes pane-in { from { opacity: 0; transform: translateY(6px); } }
+@media (prefers-reduced-motion: reduce) { .mock-pane.aktiv { animation: none; } }
+.tour-cta { text-align: center; margin-top: 30px; }
+
+/* ============ původ / proof ============ */
+.puvod { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; align-items: stretch; }
+@media (max-width: 860px) { .puvod { grid-template-columns: 1fr; } }
+.puvod-karta { background: var(--ink); color: #fff; border-radius: 18px; padding: 36px 34px; position: relative; overflow: hidden; }
+.puvod-karta::before { content: "„"; position: absolute; top: -40px; left: 18px; font-family: var(--disp); font-weight: 900; font-size: 220px; color: rgba(29,201,124,.14); line-height: 1; }
+.puvod-karta blockquote { font-family: var(--disp); font-weight: 700; font-size: clamp(19px, 2.3vw, 24px); letter-spacing: -.015em; line-height: 1.35; position: relative; }
+.puvod-karta .kdo { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+.avatar { width: 44px; height: 44px; border-radius: 99px; background: linear-gradient(135deg, var(--zelen), #0C7A4C); color: var(--ink); font-family: var(--disp); font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.puvod-karta .kdo .j { font-weight: 700; font-size: 14px; }
+.puvod-karta .kdo .r { font-family: var(--mono); font-size: 11.5px; color: var(--svetly-text); }
+.puvod-fakta { display: flex; flex-direction: column; gap: 20px; background: #fff; border: 1px solid var(--linka); border-radius: 18px; padding: 34px; justify-content: center; }
+.puvod-fakta .f .v { font-family: var(--disp); font-weight: 900; font-size: 30px; letter-spacing: -.02em; color: var(--zelen-tmava); }
+.puvod-fakta .f .l { font-size: 14px; color: var(--text-2); }
+
 /* ============ marquee ============ */
 .pas { background: var(--zelen); color: var(--ink); overflow: hidden; padding: 13px 0; border-top: 1px solid rgba(0,0,0,.12); }
 .pas-drah { display: flex; gap: 0; width: max-content; }
@@ -253,6 +345,15 @@ footer a { color: var(--text-2); }
       z Pohody a účetní data nikam neodesíláte.</p>
     </div>
 
+    <div class="dash-obal">
+    <div class="fl-karta uhrada" aria-hidden="true">
+      <span class="tecka">✓</span>
+      <span><span class="t1">Faktura 260100412 uhrazena</span><br><span class="t2">+48 200 Kč · Fitness Time a.s.</span></span>
+    </div>
+    <div class="fl-karta plneni" aria-hidden="true">
+      <span class="kolo"></span>
+      <span><span class="t1">Plnění ročního plánu</span><br><span class="t2">8,9 z 21,8 mil. Kč</span></span>
+    </div>
     <div class="dash" aria-label="Ukázka dashboardu">
       <div class="lišta"><span class="t">Přehled · červenec 2026</span><span class="sync">živá data</span></div>
       <div class="kpis">
@@ -276,6 +377,7 @@ footer a { color: var(--text-2); }
       </div>
       <div class="graf-popis"><span>srp 25</span><span>obrat po měsících</span><span>čvc 26</span></div>
       <div class="alarm">Cyklo Novák s.r.o. — faktura 92 dní po splatnosti (40 806 Kč)</div>
+    </div>
     </div>
   </div>
 
@@ -356,6 +458,106 @@ footer a { color: var(--text-2); }
           <div class="ai-radek">— vygenerováno z vašich dat, žádné halucinace</div>
         </div>
       </article>
+    </div>
+  </section>
+
+  <div class="tour-sekce">
+    <section class="blok wrap" id="tour">
+      <div class="sekce-hlava">
+        <div class="eyebrow tmavy">Prohlídka</div>
+        <h2>Takhle to vypadá <span class="zvyraz">uvnitř</span>.</h2>
+        <p>Žádné screenshoty z fotobanky — tohle je věrná ukázka rozhraní.
+        Skutečné demo je jeden klik odsud.</p>
+      </div>
+
+      <div class="taby" role="tablist" aria-label="Ukázky obrazovek">
+        <button class="tab aktiv" data-pane="p1" role="tab" aria-selected="true">Přehled</button>
+        <button class="tab" data-pane="p2" role="tab" aria-selected="false">Plán &amp; obchodníci</button>
+        <button class="tab" data-pane="p3" role="tab" aria-selected="false">Sklad</button>
+      </div>
+
+      <div class="okno">
+        <div class="okno-lista">
+          <span class="tecky"><i></i><i></i><i></i></span>
+          <span class="adresa">app · demo firma · červenec 2026</span>
+          <span style="width:47px"></span>
+        </div>
+        <div class="app-mock">
+          <div class="mock-side">
+            <div class="mock-brand"><i></i>Analytics</div>
+            <div class="mock-nav" data-nav="p1">◧ Přehled</div>
+            <div class="mock-nav" data-nav="p2">◎ Plán &amp; plnění</div>
+            <div class="mock-nav">◔ Pohledávky</div>
+            <div class="mock-nav" data-nav="p3">▤ Sklad</div>
+            <div class="mock-nav">⇄ Napojení</div>
+          </div>
+          <div class="mock-main">
+            <div class="mock-pane aktiv" id="p1">
+              <div class="mock-hlava">
+                <h4>Přehled</h4>
+                <div class="mock-chipy"><i class="aktiv">12 měsíců</i><i>2026</i><i>2025</i><i>Vše</i></div>
+              </div>
+              <div class="mock-kpis">
+                <div class="mock-kpi"><div class="l">Obrat</div><div class="v">17 218 552 Kč</div></div>
+                <div class="mock-kpi"><div class="l">Hrubá marže</div><div class="v plus">31,1 %</div></div>
+                <div class="mock-kpi"><div class="l">Po splatnosti</div><div class="v minus">653 125 Kč</div></div>
+              </div>
+              <div class="mock-graf" aria-hidden="true">
+                <i style="--h:52"></i><i style="--h:84"></i><i style="--h:50"></i><i style="--h:46"></i><i style="--h:66"></i><i style="--h:53"></i><i style="--h:47"></i><i style="--h:44"></i><i style="--h:58"></i><i style="--h:62"></i><i style="--h:60"></i><i style="--h:20"></i>
+              </div>
+            </div>
+
+            <div class="mock-pane" id="p2">
+              <div class="mock-hlava">
+                <h4>Plán &amp; plnění 2026</h4>
+                <div class="mock-chipy"><i>tempo <b>85 %</b></i><i class="aktiv">plán 21,8 mil.</i></div>
+              </div>
+              <div class="mock-kpis">
+                <div class="mock-kpi"><div class="l">Realita k dnešku</div><div class="v">8 896 667 Kč</div></div>
+                <div class="mock-kpi"><div class="l">Plnění plánu</div><div class="v">40,9 %</div></div>
+                <div class="mock-kpi"><div class="l">Odhad dojezdu</div><div class="v minus">18,5 mil. Kč</div></div>
+              </div>
+              <div class="mock-radky">
+                <div class="mock-radek"><span class="jmeno">Jan Dvořák</span><span class="pruh"><i style="--w:64"></i></span><span class="stav ok">104 %</span></div>
+                <div class="mock-radek"><span class="jmeno">Petra Králová</span><span class="pruh"><i style="--w:52"></i></span><span class="stav pozor">91 %</span></div>
+                <div class="mock-radek"><span class="jmeno">Martin Svoboda</span><span class="pruh"><i style="--w:38"></i></span><span class="stav zle">72 %</span></div>
+              </div>
+            </div>
+
+            <div class="mock-pane" id="p3">
+              <div class="mock-hlava">
+                <h4>Sklad</h4>
+                <div class="mock-chipy"><i class="aktiv">hodnota 2,6 mil.</i><i>18 položek</i></div>
+              </div>
+              <div class="mock-radky">
+                <div class="mock-radek"><span class="jmeno">GEL-ENE-32 · Energetický gel 32g</span><span class="pruh"><i style="--w:14"></i></span><span class="stav zle">vydrží 19 dní</span></div>
+                <div class="mock-radek"><span class="jmeno">ION-1000-CIT · Iontový nápoj 1kg</span><span class="pruh"><i style="--w:34"></i></span><span class="stav pozor">41 dní</span></div>
+                <div class="mock-radek"><span class="jmeno">BAR-PROT-55 · Proteinová tyčinka</span><span class="pruh"><i style="--w:55"></i></span><span class="stav ok">88 dní</span></div>
+                <div class="mock-radek"><span class="jmeno">PROT-WHEY-2K · Protein 2kg</span><span class="pruh"><i style="--w:78"></i></span><span class="stav ok">126 dní</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tour-cta"><a class="btn tmavy" href="../app/">Otevřít skutečné demo — bez registrace</a></div>
+    </section>
+  </div>
+
+  <section class="blok wrap" id="puvod">
+    <div class="puvod">
+      <div class="puvod-karta">
+        <blockquote>Tři roky jsem tenhle nástroj stavěl pro vlastní potřebu — každé ráno
+        podle něj řídíme obchod výrobce sportovní výživy. Teď ho dáváme všem, kdo mají Pohodu.</blockquote>
+        <div class="kdo">
+          <span class="avatar">JG</span>
+          <span><span class="j">Juraj Giacko</span><br><span class="r">zakladatel · e-commerce &amp; analytics lead</span></span>
+        </div>
+      </div>
+      <div class="puvod-fakta">
+        <div class="f"><div class="v">od 2024</div><div class="l">denně v ostrém provozu nad reálným obchodem</div></div>
+        <div class="f"><div class="v">tisíce</div><div class="l">dokladů z Pohody zpracovaných každý měsíc</div></div>
+        <div class="f"><div class="v">45 mil. Kč</div><div class="l">roční obrat řízený těmito přehledy</div></div>
+      </div>
     </div>
   </section>
 
@@ -540,6 +742,32 @@ footer a { color: var(--text-2); }
     if (format === "pct") return v.toFixed(1).replace(".", ",") + " %";
     return Math.round(v).toLocaleString("cs-CZ");
   }
+  /* product tour: přepínání tabů + auto-rotace, dokud uživatel neklikne */
+  var taby = [].slice.call(document.querySelectorAll(".tab"));
+  var rucne = false;
+  function ukazPane(id) {
+    taby.forEach(function (t) {
+      var aktiv = t.dataset.pane === id;
+      t.classList.toggle("aktiv", aktiv);
+      t.setAttribute("aria-selected", aktiv);
+    });
+    document.querySelectorAll(".mock-pane").forEach(function (p) { p.classList.toggle("aktiv", p.id === id); });
+    document.querySelectorAll(".mock-nav[data-nav]").forEach(function (n) { n.classList.toggle("aktiv", n.dataset.nav === id); });
+  }
+  taby.forEach(function (t) { t.addEventListener("click", function () { rucne = true; ukazPane(t.dataset.pane); }); });
+  ukazPane("p1");
+  if (!reduced) {
+    var poradi = ["p1", "p2", "p3"], ti = 0;
+    setInterval(function () {
+      if (rucne) return;
+      var okno = document.querySelector(".okno");
+      var r = okno.getBoundingClientRect();
+      if (r.top > innerHeight || r.bottom < 0) return; /* rotovat jen když je vidět */
+      ti = (ti + 1) % poradi.length;
+      ukazPane(poradi[ti]);
+    }, 3800);
+  }
+
   var citace = document.querySelectorAll("[data-cil]");
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
