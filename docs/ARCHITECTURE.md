@@ -60,6 +60,29 @@ Rozhodnutí:
 - Stack: Next.js + Postgres (Neon/Supabase) + Vercel; konektor Python →
   PyInstaller exe (známé prostředí z Vitaru).
 
+## Účty a přihlašování (F2)
+
+Zásada: **trial nikdy nevyžaduje registraci** (XML v prohlížeči = hlavní
+akviziční argument). Účty přicházejí až s konektorem a uloženými daty.
+
+Datový model — všechno visí na workspace, ne na uživateli:
+
+```
+User ──< WorkspaceMember >── Workspace ──< AccountingUnit (účetní jednotka / 1 Pohoda)
+         (role: owner/admin/           │
+          member/read-only)            ├── ConnectorKey (API klíč z párovacího kódu)
+                                       └── Subscription (tarif, billing metrika = počet ú.j.)
+```
+
+- Auth: **Supabase Auth** (e-mail + heslo, magic link, Google; 2FA pro tarif
+  Kancelář). Vlastní správu hesel nestavět. RLS v Postgresu per workspace.
+- Pozvánky do workspace e-mailem; per-modul oprávnění až ve F3.
+- Konektor se nepřihlašuje jako člověk: jednorázový párovací kód z webu
+  → API klíč vázaný na účetní jednotku (viz `connector/sync.py`, `cloud.api_key`).
+  Revokace klíče = odpojení konektoru bez zásahu u zákazníka.
+- F1 mezikrok pro piloty: privátní deploy per pilot (Vercel password protection),
+  žádný účetní systém.
+
 ## F3 — rozšíření
 
 - mServer live sync (hodinový → minutový refresh).
